@@ -14,6 +14,7 @@ DD-10003,19.95,EUR,MANDATE-1003,RCUR,2026-10-15,Demo Customer,ES9121000418450200
     generate: document.getElementById("generateBtn"),
     copy: document.getElementById("copyBtn"),
     download: document.getElementById("downloadBtn"),
+    downloadQ1x: document.getElementById("downloadQ1xBtn"),
     status: document.getElementById("status"),
     summary: document.getElementById("summary"),
     findings: document.getElementById("findings"),
@@ -206,6 +207,7 @@ ${txs}
       els.xml.textContent = "Validate your records, then generate the XML.";
       els.copy.disabled = true;
       els.download.disabled = true;
+      els.downloadQ1x.disabled = true;
       renderValidation(result);
       return result;
     } catch (e) {
@@ -224,6 +226,7 @@ ${txs}
     els.xml.textContent = lastXml;
     els.copy.disabled = false;
     els.download.disabled = false;
+    els.downloadQ1x.disabled = false;
   });
 
   els.copy.addEventListener("click", async () => {
@@ -239,6 +242,16 @@ ${txs}
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url; a.download = "pain.008.001.08.xml";
+    a.click(); URL.revokeObjectURL(url);
+  });
+
+  // The bank sample is the same pain.008.001.08 XML payload, using .Q1X as the filename extension.
+  els.downloadQ1x.addEventListener("click", () => {
+    if (!lastXml) return;
+    const blob = new Blob([lastXml], { type: "application/xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "pain.008.001.08.Q1X";
     a.click(); URL.revokeObjectURL(url);
   });
 
