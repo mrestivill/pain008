@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#0b0e14">
+  <meta name="description" content="Generador i validador pain.008 ISO 20022 que funciona íntegrament al navegador.">
+  <title>pain.008 Generator & Validator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">P8</div>
+        <div>
+          <strong>pain.008</strong>
+          <span>ISO 20022 Direct Debit</span>
+        </div>
+      </div>
+      <span class="badge">100% client-side</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Interactive demo</p>
+      <h1>pain.008 Generator and Validator</h1>
+      <p class="lead">Drop a CSV, load the sample, or edit the records below. Validation and XML generation happen entirely in your browser.</p>
+      <div class="notice">
+        <strong>Privacy:</strong> no payment data is uploaded. This page is plain HTML, CSS and JavaScript and can be hosted directly by GitHub Pages.
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>1. Payment records</h2>
+          <p>CSV header contract for SEPA Direct Debit.</p>
+        </div>
+        <div class="actions">
+          <label class="button secondary" for="csvFile">Load CSV</label>
+          <input id="csvFile" type="file" accept=".csv,text/csv" hidden>
+          <button id="sampleBtn" class="button secondary">Use sample</button>
+          <button id="validateBtn" class="button primary">Validate</button>
+        </div>
+      </div>
+
+      <div class="error-box" id="csvError" hidden></div>
+      <textarea id="csvInput" spellcheck="false" aria-label="CSV payment records"></textarea>
+      <div class="csv-help">
+        Required: <code>payment_id</code>, <code>amount</code>, <code>currency</code>,
+        <code>mandate_id</code>, <code>sequence_type</code>, <code>collection_date</code>,
+        <code>debtor_name</code>, <code>debtor_iban</code>.
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-head compact">
+          <div>
+            <h2>2. Validation</h2>
+            <p>IBAN checksum, BIC structure, dates, amounts and control totals.</p>
+          </div>
+          <span id="status" class="status neutral">Not checked</span>
+        </div>
+        <div id="summary" class="summary"></div>
+        <div id="findings" class="findings"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head compact">
+          <div>
+            <h2>3. Generate XML</h2>
+            <p>Message type: <code>pain.008.001.08</code></p>
+          </div>
+          <button id="generateBtn" class="button primary">Generate XML</button>
+        </div>
+        <div class="xml-actions">
+          <button id="copyBtn" class="button secondary" disabled>Copy</button>
+          <button id="downloadBtn" class="button secondary" disabled>Download XML</button>
+        </div>
+        <pre id="xmlOutput" class="xml-output"><code>Validate your records, then generate the XML.</code></pre>
+      </div>
+    </section>
+
+    <section class="panel details">
+      <h2>What this demo checks</h2>
+      <div class="checks">
+        <div><b>IBAN</b><span>ISO 13616 mod-97 checksum</span></div>
+        <div><b>BIC</b><span>ISO 9362 structural format</span></div>
+        <div><b>Amounts</b><span>Positive decimal amounts with EUR support</span></div>
+        <div><b>Dates</b><span>ISO 8601 collection date</span></div>
+        <div><b>Mandates</b><span>FRST / RCUR / OOFF / FNAL</span></div>
+        <div><b>Totals</b><span>NbOfTxs and CtrlSum recomputed from rows</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Static GitHub Pages demo · pain.008.001.08 · No build step</div>
+  </footer>
+
+  <script src="try-pain008.js"></script>
+</body>
+</html>
