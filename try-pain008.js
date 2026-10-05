@@ -251,7 +251,7 @@ ${txs}
     const blob = new Blob([lastXml], { type: "application/xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = "pain.008.001.08.Q1X";
+    a.href = url; a.download = "pain.008.001.08.q1x";
     a.click(); URL.revokeObjectURL(url);
   });
 
